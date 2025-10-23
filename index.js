@@ -8,7 +8,7 @@ async function main() {
     mac: { key: 'mac', ext: '.dmg', mime: 'application/x-apple-diskimage' },
     linux: { key: 'linux', ext: '.tar.gz', mime: 'application/gzip' }
   }
-
+//46mnIxEbIB5Hn9e6OvBzwu3PJyrpfVHZ
   const versionInfo = await axios.get(apiUrl)
   const latest = versionInfo.data['PCP'][0]
   const version = latest.version
@@ -28,7 +28,7 @@ async function main() {
     const response = await axios({ method: 'GET', url, responseType: 'stream' })
 
     await drive.files.create({
-      requestBody: { name: filename },
+      requestBody: { name: filename,  parents: ['46mnIxEbIB5Hn9e6OvBzwu3PJyrpfVHZ'] },
       media: { mimeType: mime, body: response.data },
     })
 
