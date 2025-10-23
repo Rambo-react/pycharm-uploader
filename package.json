@@ -1,0 +1,10 @@
+{
+  "name": "pycharm-uploader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "googleapis": "^118.0.0"
+  }
+}
