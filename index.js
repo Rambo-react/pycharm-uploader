@@ -9,7 +9,12 @@ async function main() {
     linux: { key: 'linux', ext: '.tar.gz', mime: 'application/gzip' }
   }
 
-  const oauth2Client = new google.auth.OAuth2()
+const oauth2Client = new google.auth.OAuth2(
+  process.env.GDRIVE_CLIENT_ID,
+  process.env.GDRIVE_CLIENT_SECRET,
+  'urn:ietf:wg:oauth:2.0:oob'
+)
+
   oauth2Client.setCredentials({
     access_token: process.env.GDRIVE_ACCESS_TOKEN,
     refresh_token: process.env.GDRIVE_REFRESH_TOKEN,
