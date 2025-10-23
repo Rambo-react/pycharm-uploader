@@ -8,7 +8,7 @@ async function main() {
     mac: { key: 'mac', ext: '.dmg', mime: 'application/x-apple-diskimage' },
     linux: { key: 'linux', ext: '.tar.gz', mime: 'application/gzip' }
   }
-//46mnIxEbIB5Hn9e6OvBzwu3PJyrpfVHZ
+
   const versionInfo = await axios.get(apiUrl)
   const latest = versionInfo.data['PCP'][0]
   const version = latest.version
