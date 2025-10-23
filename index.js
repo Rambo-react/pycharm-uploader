@@ -28,7 +28,7 @@ async function main() {
     const response = await axios({ method: 'GET', url, responseType: 'stream' })
 
     await drive.files.create({
-      requestBody: { name: filename,  parents: ['46mnIxEbIB5Hn9e6OvBzwu3PJyrpfVHZ'] },
+      requestBody: { name: filename,  parents: ['146mnIxEbIB5Hn9e6OvBzwu3PJyrpfVHZ'] },
       media: { mimeType: mime, body: response.data },
     })
 
