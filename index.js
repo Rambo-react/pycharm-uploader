@@ -9,15 +9,20 @@ async function main() {
     linux: { key: 'linux', ext: '.tar.gz', mime: 'application/gzip' }
   }
 
+  const oauth2Client = new google.auth.OAuth2()
+  oauth2Client.setCredentials({
+    access_token: process.env.GDRIVE_ACCESS_TOKEN,
+    refresh_token: process.env.GDRIVE_REFRESH_TOKEN,
+    scope: 'https://www.googleapis.com/auth/drive.file',
+    token_type: 'Bearer',
+    expiry_date: Date.now() + 3600 * 1000
+  })
+
+  const drive = google.drive({ version: 'v3', auth: oauth2Client })
+
   const versionInfo = await axios.get(apiUrl)
   const latest = versionInfo.data['PCP'][0]
   const version = latest.version
-
-  const auth = new google.auth.GoogleAuth({
-    credentials: JSON.parse(process.env.GDRIVE_CREDENTIALS),
-    scopes: ['https://www.googleapis.com/auth/drive.file'],
-  })
-  const drive = google.drive({ version: 'v3', auth: await auth.getClient() })
 
   for (const [platform, { key, ext, mime }] of Object.entries(platforms)) {
     const info = latest.downloads[key]
@@ -28,7 +33,7 @@ async function main() {
     const response = await axios({ method: 'GET', url, responseType: 'stream' })
 
     await drive.files.create({
-      requestBody: { name: filename,  parents: ['146mnIxEbIB5Hn9e6OvBzwu3PJyrpfVHZ'] },
+      requestBody: { name: filename },
       media: { mimeType: mime, body: response.data },
     })
 
