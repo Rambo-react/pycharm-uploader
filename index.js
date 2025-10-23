@@ -1,5 +1,5 @@
-const { google } = require('googleapis')
-const axios = require('axios')
+import { google } from 'googleapis'
+import axios from 'axios'
 
 async function main() {
   const apiUrl = 'https://data.services.jetbrains.com/products/releases?code=PCP&latest=true&type=release'
