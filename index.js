@@ -38,7 +38,12 @@ async function main() {
     if (!info || !info.link) continue
 
     const url = info.link
-    const filename = `pycharm-professional-${version}-${platform}${ext}`
+    
+    const now = new Date()
+    const date = now.toISOString().split('T')[0] // YYYY-MM-DD
+    const time = now.toTimeString().slice(0, 8).replace(/:/g, '-') // HH-MM-SS
+    const filename = `pycharm-professional-${version}-${platform}-${date}_${time}${ext}`
+    
     const response = await axios({ method: 'GET', url, responseType: 'stream' })
 
     try {
