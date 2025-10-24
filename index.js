@@ -20,11 +20,7 @@ async function main() {
   )
 
   oauth2Client.setCredentials({
-    // access_token: process.env.GDRIVE_ACCESS_TOKEN,
     refresh_token: process.env.GDRIVE_REFRESH_TOKEN,
-    // scope: 'https://www.googleapis.com/auth/drive.file',
-    // token_type: 'Bearer',
-    // expiry_date: Date.now() + 3600 * 1000
   })
 
   const drive = google.drive({ version: 'v3', auth: oauth2Client })
@@ -46,9 +42,11 @@ async function main() {
     
     const response = await axios({ method: 'GET', url, responseType: 'stream' })
 
+    const folderId = '146mnIxEbIB5Hn9e6OvBzwu3PJyrpfVHZ'
+    
     try {
       const uploaded = await drive.files.create({
-        requestBody: { name: filename },
+        requestBody: { name: filename, parents: [folderId] },
         media: { mimeType: mime, body: response.data },
       })
 
