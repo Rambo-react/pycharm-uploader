@@ -50,17 +50,17 @@ async function main() {
       console.log(`✅ Загружено: ${filename}`)
 
       // Удаление старых версий для этой платформы
-      // const { data } = await drive.files.list({
-      //   q: `name contains 'pycharm-professional-' and name contains '${platform}' and name != '${filename}' and trashed = false`,
-      //   fields: 'files(id, name)',
-      //   pageSize: 10,
-      // })
+      const { data } = await drive.files.list({
+        q: `name contains 'pycharm-professional-' and name contains '${platform}' and name != '${filename}' and trashed = false`,
+        fields: 'files(id, name)',
+        pageSize: 10,
+      })
 
-      // const oldFiles = data.files || []
-      // for (const file of oldFiles) {
-      //   await drive.files.delete({ fileId: file.id })
-      //   console.log(`🗑️ Удалено: ${file.name}`)
-      // }
+      const oldFiles = data.files || []
+      for (const file of oldFiles) {
+        await drive.files.delete({ fileId: file.id })
+        console.log(`🗑️ Удалено: ${file.name}`)
+      }
     } catch (err) {
       console.error(`❌ Ошибка загрузки ${filename}: ${err.message}`)
     }
