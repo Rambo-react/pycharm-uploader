@@ -22,6 +22,9 @@ async function main() {
   oauth2Client.setCredentials({
     access_token: process.env.GDRIVE_ACCESS_TOKEN,
     refresh_token: process.env.GDRIVE_REFRESH_TOKEN,
+    scope: 'https://www.googleapis.com/auth/drive.file',
+    token_type: 'Bearer',
+    expiry_date: Date.now() + 3600 * 1000
   })
 
   const drive = google.drive({ version: 'v3', auth: oauth2Client })
